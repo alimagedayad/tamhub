@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from django.core.exceptions import ValidationError
 
 from contact.models import Contact
 from contact.api.serializers import ContactSerializer
@@ -14,6 +15,9 @@ class ContactView(APIView):
         try: 
             return Contact.objects.get(pk=pk)
         except Contact.DoesNotExist:
+            return None
+        
+        except ValidationError:
             return None
 
     def get(self, request, pk):
