@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.validators import ArrayMinLengthValidator
 
 # Create your models here.
 class Contact(models.Model):
@@ -8,7 +9,11 @@ class Contact(models.Model):
     name = models.TextField()
     numbers = ArrayField(
         models.CharField(
-            max_length=11, 
-            blank=False
-        ), blank=False, default=list
+            max_length=11
+        ),
+        blank=False, 
+        null=False,
+        validators=[
+            ArrayMinLengthValidator(1)
+        ]
     )
