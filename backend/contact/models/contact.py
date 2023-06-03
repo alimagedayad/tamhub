@@ -17,3 +17,4 @@ class Contact(models.Model):
             ArrayMinLengthValidator(1)
         ]
     )
+    
